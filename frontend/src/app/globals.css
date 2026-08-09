@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  /* Professional Blue/Teal/Emerald Palette */
+  --color-teal-bg: #05161A;
+  --color-teal-surface: #072E33;
+  --color-teal-panel: #294D61;
+  --color-teal-primary: #0C7075;
+  --color-teal-accent: #03F3DA;
+  --color-teal-soft: #6DA5C0;
+
+  /* Light theme counterpart shades */
+  --color-teal-light: #F4FAFC;
+  --color-teal-card: #EAF4F7;
+  --color-teal-hover: #D5ECF0;
+  --color-teal-border: #B9DDE4;
+  --color-teal-text: #0B3C40;
+
+  --color-bgLight: #F4FAFC;
+  --color-bgDark: #05161A;
+}
+
+@layer base {
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+}
