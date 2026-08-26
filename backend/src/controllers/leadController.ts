@@ -28,7 +28,8 @@ export const startScrapingTask = async (req: Request, res: Response): Promise<vo
   let browser: any = null;
   try {
     // 1. Launch Puppeteer with anti-bot flags + realistic user agent
-    browser = await puppeteer.launch({
+    // For Railway/deployment: skip Chrome download, use system Chrome or executablePath
+    const launchOptions: any = {
       headless: true,
       args: [
         '--no-sandbox',
@@ -37,7 +38,14 @@ export const startScrapingTask = async (req: Request, res: Response): Promise<vo
         '--disable-dev-shm-usage',
         '--window-size=1366,900',
       ],
-    });
+    };
+
+    // If PUPPETEER_EXECUTABLE_PATH is set (for Railway/deployment), use it
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+      launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+    }
+
+    browser = await puppeteer.launch(launchOptions);
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1366, height: 900 });
