@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import GuardModal from "@/components/GuardModal";
-import Footer from "@/components/Footer";
+import ConditionalFooter from "@/components/ConditionalFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 <AuthProvider>
           <div className="flex flex-col min-h-screen">
             {children}
-            <Footer />
+            <ConditionalFooter />
           </div>
           <GuardModal />
         </AuthProvider>

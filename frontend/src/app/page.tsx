@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { Search, MapPin, ArrowRight, Lock, Check, Sparkles, Zap, Rocket } from 'lucide-react';
 
 export default function HuntifyMasterProLanding() {
   const { isAuthenticated, theme, requireAuth, openGuardModal } = useAuth();
@@ -49,12 +50,12 @@ export default function HuntifyMasterProLanding() {
 
   const faqs = [
     { q: 'What makes Huntify a pro-level lead generator?', a: 'Huntify combines automated map scouting with live website audits and an internal secure inbox, ensuring zero deal drop-offs.' },
-{ q: 'How does the interactive mouse glow work on cards?', a: 'Our custom UI engine tracks cursor coordinates in real-time to render an exquisite teal-tinted spotlight along card borders.' },
-    { q: 'Can I use Huntify for local Pakistani markets?', a: 'Yes! Optimized specifically for Lahore, Karachi, Islamabad, and Faisalabad business ecosystems.' },
+    { q: 'How does the interactive mouse glow work on cards?', a: 'Our custom UI engine tracks cursor coordinates in real-time to render an exquisite teal-tinted spotlight along card borders.' },
+    { q: 'Can I use Huntify for local Pakistani markets?', a: 'Yes! Optimized specifically for Lahore, Karachi, Islamabad, Faisalabad, and all major commercial hubs across Pakistan.' },
     { q: 'Is my deal pipeline private and secure?', a: 'All records, client emails, and conversation logs are encrypted and strictly restricted to your account session.' }
   ];
 
-return (
+  return (
     <div className={`min-h-screen font-sans transition-colors duration-300 relative overflow-hidden ${isDarkMode ? 'bg-[#05161A] text-[#FAF8F5] selection:bg-[#03F3DA] selection:text-[#05161A]' : 'bg-[#F4FAFC] text-[#072E33] selection:bg-[#0C7075] selection:text-white'}`}>
 
       {/* Ambient Teal/Emerald Background Glows */}
@@ -63,19 +64,19 @@ return (
 
       {/* Toast Alert Notification */}
       {notification && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-6 py-3.5 rounded-2xl shadow-2xl border border-[#03F3DA]/50 animate-bounce backdrop-blur-md">
-          ✨ {notification}
+        <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-6 py-3.5 rounded-2xl shadow-2xl border border-[#03F3DA]/50 animate-bounce backdrop-blur-md flex items-center gap-2">
+          <Sparkles className="w-4 h-4" /> {notification}
         </div>
       )}
 
-{/* Shared Teal Navbar with Chat link */}
+      {/* Shared Teal Navbar with Chat link */}
       <Navbar active="home" />
 
       {/* ================= HERO SECTION WITH MOUSE SPOTLIGHT GLOW CARD ================= */}
       <section className="relative px-6 lg:px-16 pt-20 pb-20 text-center max-w-5xl mx-auto space-y-8">
         
-<div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold shadow-inner border ${isDarkMode ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]/60' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
-          <span>⚡ Pro-Level B2B Lead Extraction & Secure Deal Pipeline</span>
+        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold shadow-inner border ${isDarkMode ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]/60' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
+          <Zap className="w-4 h-4" /> Pro-Level B2B Lead Extraction & Secure Deal Pipeline
         </div>
 
         <h1 className={`text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>
@@ -107,7 +108,7 @@ return (
 
           <div className="relative z-10 flex flex-col sm:flex-row gap-3">
             <div className={`flex-1 flex items-center px-4 py-3.5 rounded-2xl border ${isDarkMode ? 'bg-[#05161A] border-[#294D61]' : 'bg-[#F4FAFC] border-[#B9DDE4]'}`}>
-              <span className="mr-2 text-[#03F3DA]">🔍</span>
+              <Search className="mr-2 w-4 h-4 text-[#03F3DA]" />
               <input 
                 type="text" 
                 placeholder="Search niche (e.g. Restaurants, Software Houses)..." 
@@ -122,17 +123,72 @@ return (
               onChange={(e) => setSelectedCity(e.target.value)}
               className={`px-4 py-3.5 rounded-2xl border text-xs font-bold outline-none cursor-pointer ${isDarkMode ? 'bg-[#05161A] border-[#294D61] text-white' : 'bg-[#F4FAFC] border-[#B9DDE4] text-[#072E33]'}`}
             >
-              <option value="Lahore">📍 Lahore</option>
-              <option value="Karachi">📍 Karachi</option>
-              <option value="Islamabad">📍 Islamabad</option>
-              <option value="Faisalabad">📍 Faisalabad</option>
+              <optgroup label="Major Metro Hubs">
+                <option value="Islamabad">Islamabad</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="Quetta">Quetta</option>
+              </optgroup>
+
+              <optgroup label="Punjab">
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Multan">Multan</option>
+                <option value="Gujranwala">Gujranwala</option>
+                <option value="Sialkot">Sialkot</option>
+                <option value="Bahawalpur">Bahawalpur</option>
+                <option value="Sargodha">Sargodha</option>
+                <option value="Sheikhupura">Sheikhupura</option>
+                <option value="Rahim Yar Khan">Rahim Yar Khan</option>
+                <option value="Jhang">Jhang</option>
+                <option value="Dera Ghazi Khan">Dera Ghazi Khan</option>
+                <option value="Gujrat">Gujrat</option>
+                <option value="Sahiwal">Sahiwal</option>
+                <option value="Wah Cantt">Wah Cantt</option>
+                <option value="Kasur">Kasur</option>
+                <option value="Okara">Okara</option>
+                <option value="Mianwali">Mianwali</option>
+              </optgroup>
+
+              <optgroup label="Sindh">
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Sukkur">Sukkur</option>
+                <option value="Larkana">Larkana</option>
+                <option value="Nawabshah">Nawabshah</option>
+                <option value="Mirpur Khas">Mirpur Khas</option>
+                <option value="Shikarpur">Shikarpur</option>
+              </optgroup>
+
+              <optgroup label="Khyber Pakhtunkhwa (KPK)">
+                <option value="Mardan">Mardan</option>
+                <option value="Abbottabad">Abbottabad</option>
+                <option value="Mingora (Swat)">Mingora (Swat)</option>
+                <option value="Kohat">Kohat</option>
+                <option value="Dera Ismail Khan">Dera Ismail Khan</option>
+                <option value="Nowshera">Nowshera</option>
+              </optgroup>
+
+              <optgroup label="Balochistan">
+                <option value="Gwadar">Gwadar</option>
+                <option value="Turbat">Turbat</option>
+                <option value="Khuzdar">Khuzdar</option>
+                <option value="Chaman">Chaman</option>
+              </optgroup>
+
+              <optgroup label="AJK & Gilgit-Baltistan">
+                <option value="Gilgit">Gilgit</option>
+                <option value="Skardu">Skardu</option>
+                <option value="Muzaffarabad">Muzaffarabad</option>
+                <option value="Mirpur AJK">Mirpur (AJK)</option>
+              </optgroup>
             </select>
 
-<button 
+            <button 
               onClick={() => requireAuth(() => triggerToast(`Scanning verified leads for "${searchQuery || 'All'}" in ${selectedCity}!`))}
-              className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] hover:from-[#0C7075] hover:to-[#03F3DA] text-white font-black text-xs shadow-lg shadow-black/60 transition-all hover:scale-105 border border-[#03F3DA]/40"
+              className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] hover:from-[#0C7075] hover:to-[#03F3DA] text-white font-black text-xs shadow-lg shadow-black/60 transition-all hover:scale-105 border border-[#03F3DA]/40 flex items-center justify-center gap-1"
             >
-              Hunt Leads 🚀
+              Hunt Leads <Rocket className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -161,9 +217,9 @@ return (
         </div>
       </section>
 
-      {/* ================= SECTION 4: REGIONAL CITY HUBS (MOUSE SPOTLIGHT CARDS) ================= */}
+      {/* ================= SECTION 4: REGIONAL CITY HUBS ================= */}
       <section id="cities" className="px-6 lg:px-16 py-24 max-w-6xl mx-auto space-y-10">
-<div className="text-center space-y-3">
+        <div className="text-center space-y-3">
           <h2 className={`text-2xl sm:text-4xl font-black ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>Explore Regional City Hubs</h2>
           <p className={`text-xs sm:text-sm max-w-xl mx-auto ${isDarkMode ? 'text-[#A9C6D4]' : 'text-[#294D61]'}`}>
             Click on any major hub below to instantly filter high-ticket clients needing web redesigns and digital marketing.
@@ -174,13 +230,13 @@ return (
           {cityHubs.map((hub, idx) => (
             <div 
               key={idx}
-onClick={() => requireAuth(() => { setSelectedCity(hub.name); triggerToast(`Selected ${hub.name} City Hub!`); })}
+              onClick={() => requireAuth(() => { setSelectedCity(hub.name); triggerToast(`Selected ${hub.name} City Hub!`); })}
               className={`relative p-6 rounded-3xl border transition-all cursor-pointer space-y-4 group overflow-hidden ${isDarkMode ? 'bg-[#072E33] border-[#294D61] hover:border-[#6DA5C0]' : 'bg-white border-[#B9DDE4] hover:border-[#0C7075] shadow-sm'}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#0C7075]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
               
               <div className="flex justify-between items-start relative z-10">
-                <span className="text-2xl">📍</span>
+                <MapPin className="w-6 h-6 text-[#0C7075]" />
                 <span className={`px-3 py-1 rounded-full font-bold text-[10px] border ${isDarkMode ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
                   {hub.leads}
                 </span>
@@ -193,7 +249,7 @@ onClick={() => requireAuth(() => { setSelectedCity(hub.name); triggerToast(`Sele
               </div>
 
               <div className="pt-2 text-xs font-bold text-[#03F3DA] flex items-center gap-1 relative z-10">
-                Explore {hub.name} Leads →
+                Explore {hub.name} Leads <ArrowRight className="w-4 h-4" />
               </div>
             </div>
           ))}
@@ -205,8 +261,8 @@ onClick={() => requireAuth(() => { setSelectedCity(hub.name); triggerToast(`Sele
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           
           <div className="space-y-6">
-            <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border inline-block ${isDarkMode ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
-              🔒 Built-in Secure Inbox System
+            <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border inline-flex items-center gap-2 ${isDarkMode ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
+              <Lock className="w-4 h-4" /> Built-in Secure Inbox System
             </span>
             <h2 className={`text-3xl font-black leading-tight ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>
               No More Lost Numbers. Keep All Negotiations Inside Huntify.
@@ -215,9 +271,9 @@ onClick={() => requireAuth(() => { setSelectedCity(hub.name); triggerToast(`Sele
               When leads find your phone number externally, they often vanish. Huntify routes all client outreach through an internal secure inbox. Messages dispatch directly to their verified email while keeping your deal pipeline fully organized in one professional dashboard.
             </p>
             <ul className={`space-y-3 text-xs font-bold ${isDarkMode ? 'text-[#D4E6EE]' : 'text-[#072E33]'}`}>
-              <li className="flex items-center gap-2">✅ Direct Email Dispatch via Internal Messaging</li>
-              <li className="flex items-center gap-2">✅ Automated Website Speed & SSL Audit Reports</li>
-              <li className="flex items-center gap-2">✅ Professional User Profile & Resume Management</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#0C7075]" /> Direct Email Dispatch via Internal Messaging</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#0C7075]" /> Automated Website Speed & SSL Audit Reports</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#0C7075]" /> Professional User Profile & Resume Management</li>
             </ul>
           </div>
 
@@ -253,6 +309,6 @@ onClick={() => requireAuth(() => { setSelectedCity(hub.name); triggerToast(`Sele
         </div>
       </section>
 
-</div>
+    </div>
   );
 }

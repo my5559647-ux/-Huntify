@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { User, Lock, ScrollText, Settings, Sparkles, LogOut, Trash2, Camera, Save, Check, Key, Shield, Mail, Target, BarChart3, Moon, Sun, Bell } from 'lucide-react';
 
 const initialsOf = (name?: string) =>
   name
@@ -12,11 +13,11 @@ const initialsOf = (name?: string) =>
 
 type SectionKey = 'account' | 'security' | 'activity' | 'preferences';
 
-const SECTIONS: { key: SectionKey; label: string; icon: string }[] = [
-  { key: 'account', label: 'Account Details', icon: '👤' },
-  { key: 'security', label: 'Security & Password', icon: '🔒' },
-  { key: 'activity', label: 'Activity Logs', icon: '📜' },
-  { key: 'preferences', label: 'Preferences', icon: '⚙️' },
+const SECTIONS: { key: SectionKey; label: string; icon: any }[] = [
+  { key: 'account', label: 'Account Details', icon: User },
+  { key: 'security', label: 'Security & Password', icon: Lock },
+  { key: 'activity', label: 'Activity Logs', icon: ScrollText },
+  { key: 'preferences', label: 'Preferences', icon: Settings },
 ];
 
 export default function ProfilePage() {
@@ -65,7 +66,7 @@ export default function ProfilePage() {
         <Navbar active="profile" />
         <div className="flex-1 flex items-center justify-center px-6">
           <div className={`p-8 rounded-3xl border shadow-xl text-center space-y-4 max-w-sm ${isDark ? 'bg-[#072E33] border-[#294D61]' : 'bg-white border-[#B9DDE4]'}`}>
-            <span className="text-4xl">🔒</span>
+            <Lock className="w-12 h-12 text-[#0C7075]" />
             <h1 className="text-xl font-black">Login Required</h1>
             <p className={`text-xs ${isDark ? 'text-[#A9C6D4]' : 'text-[#294D61]'}`}>Sign in to view and manage your account dashboard.</p>
             <button
@@ -144,8 +145,8 @@ export default function ProfilePage() {
       <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-[#6DA5C0]/15 blur-[180px] rounded-full pointer-events-none -z-10"></div>
 
       {notify && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce border border-[#03F3DA]/50">
-          ✨ {notify}
+        <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce border border-[#03F3DA]/50 flex items-center gap-2">
+          <Sparkles className="w-4 h-4" /> {notify}
         </div>
       )}
 
@@ -155,8 +156,8 @@ export default function ProfilePage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Page Banner */}
         <div className="text-center space-y-2">
-          <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border inline-block ${isDark ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]/60' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
-            👤 Account Dashboard
+          <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border inline-flex items-center gap-2 ${isDark ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075]/60' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
+            <User className="w-4 h-4" /> Account Dashboard
           </span>
           <h1 className={`text-3xl font-black ${heading}`}>Your Account Hub</h1>
           <p className={`text-xs sm:text-sm ${muted}`}>Manage your profile, security, logs, and preferences in one place.</p>
@@ -187,6 +188,7 @@ export default function ProfilePage() {
             <nav className="space-y-1">
               {SECTIONS.map((sec) => {
                 const active = activeSection === sec.key;
+                const IconComp = sec.icon;
                 return (
                   <button
                     key={sec.key}
@@ -199,7 +201,7 @@ export default function ProfilePage() {
                           : 'text-[#294D61] hover:bg-[#EAF4F7] hover:text-[#0C7075]'
                     }`}
                   >
-                    <span className="text-sm">{sec.icon}</span>
+                    <IconComp className="w-4 h-4" />
                     {sec.label}
                   </button>
                 );
@@ -211,14 +213,14 @@ export default function ProfilePage() {
                 onClick={handleLogout}
                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-black text-[#0C7075] hover:bg-[#EAF4F7] transition-all dark:text-[#03F3DA] dark:hover:bg-[#294D61]"
               >
-                🚪 Logout Session
+                <LogOut className="w-4 h-4" /> Logout Session
               </button>
               {!confirmDelete ? (
-<button
+                <button
                   onClick={() => setConfirmDelete(true)}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-emerald-500 hover:bg-emerald-500/10 transition-all"
                 >
-                  🗑️ Delete Account
+                  <Trash2 className="w-4 h-4" /> Delete Account
                 </button>
               ) : (
                 <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
@@ -240,21 +242,24 @@ export default function ProfilePage() {
           <section className="flex-1 min-w-0 space-y-6">
             {/* Mobile nav tabs */}
             <div className={`lg:hidden flex overflow-x-auto gap-2 p-2 rounded-2xl border ${card}`}>
-              {SECTIONS.map((sec) => (
-                <button
-                  key={sec.key}
-                  onClick={() => setActiveSection(sec.key)}
-                  className={`shrink-0 px-3 py-2 rounded-xl text-[11px] font-bold transition-all ${
-                    activeSection === sec.key
-                      ? 'bg-[#0C7075] text-white'
-                      : isDark
-                        ? 'bg-[#05161A] text-[#A9C6D4] border border-[#294D61]'
-                        : 'bg-white text-[#294D61] border border-[#B9DDE4]'
-                  }`}
-                >
-                  {sec.icon} {sec.label}
-                </button>
-              ))}
+              {SECTIONS.map((sec) => {
+                const IconComp = sec.icon;
+                return (
+                  <button
+                    key={sec.key}
+                    onClick={() => setActiveSection(sec.key)}
+                    className={`shrink-0 px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                      activeSection === sec.key
+                        ? 'bg-[#0C7075] text-white'
+                        : isDark
+                          ? 'bg-[#05161A] text-[#A9C6D4] border border-[#294D61]'
+                          : 'bg-white text-[#294D61] border border-[#B9DDE4]'
+                    }`}
+                  >
+                    <IconComp className="w-3.5 h-3.5" /> {sec.label}
+                  </button>
+                );
+              })}
             </div>
 
             {/* ===== ACCOUNT DETAILS ===== */}
@@ -262,12 +267,12 @@ export default function ProfilePage() {
               <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 ${card}`}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className={`text-lg font-black ${heading}`}>👤 Account Details</h2>
+                    <h2 className={`text-lg font-black ${heading} flex items-center gap-2`}><User className="w-5 h-5" /> Account Details</h2>
                     <p className={`text-xs mt-0.5 ${muted}`}>Update your personal information.</p>
                   </div>
                   <label className="cursor-pointer">
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#EAF4F7] text-[#0C7075] text-xs font-black hover:bg-[#D5ECF0] transition-all dark:bg-[#294D61] dark:text-[#03F3DA]">
-                      📷 Change Photo
+                      <Camera className="w-4 h-4" /> Change Photo
                     </span>
                     <input type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" />
                   </label>
@@ -298,9 +303,9 @@ export default function ProfilePage() {
 
                 <div className="flex items-center gap-3">
                   <button onClick={saveAccount} className={btnPrimary}>
-                    💾 Save Changes
+                    <Save className="inline w-4 h-4 mr-1" /> Save Changes
                   </button>
-                  {saved && <span className="text-xs font-bold text-[#1F7A3D]">✓ Saved!</span>}
+                  {saved && <span className="text-xs font-bold text-[#1F7A3D] flex items-center gap-1"><Check className="w-3 h-3" /> Saved!</span>}
                 </div>
               </div>
             )}
@@ -309,7 +314,7 @@ export default function ProfilePage() {
             {activeSection === 'security' && (
               <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 ${card}`}>
                 <div>
-                  <h2 className={`text-lg font-black ${heading}`}>🔒 Security & Password</h2>
+                  <h2 className={`text-lg font-black ${heading} flex items-center gap-2`}><Lock className="w-5 h-5" /> Security & Password</h2>
                   <p className={`text-xs mt-0.5 ${muted}`}>Protect your account with a strong password and extra security.</p>
                 </div>
 
@@ -329,13 +334,13 @@ export default function ProfilePage() {
                     </div>
                   </div>
                   <button type="submit" className={btnPrimary}>
-                    🔑 Update Password
+                    <Key className="inline w-4 h-4 mr-1" /> Update Password
                   </button>
                 </form>
 
                 <div className={`p-5 rounded-2xl border flex items-center justify-between gap-4 ${isDark ? 'border-[#294D61]' : 'border-[#B9DDE4]'}`}>
                   <div>
-                    <p className={`text-sm font-black ${heading}`}>🛡️ Two-Factor Authentication</p>
+                    <p className={`text-sm font-black ${heading} flex items-center gap-2`}><Shield className="w-5 h-5" /> Two-Factor Authentication</p>
                     <p className={`text-xs mt-0.5 ${muted}`}>Add an extra layer of security to your sign-ins.</p>
                   </div>
                   <button
@@ -352,17 +357,17 @@ export default function ProfilePage() {
             {activeSection === 'activity' && (
               <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 ${card}`}>
                 <div>
-                  <h2 className={`text-lg font-black ${heading}`}>📜 Activity Logs</h2>
+                  <h2 className={`text-lg font-black ${heading} flex items-center gap-2`}><ScrollText className="w-5 h-5" /> Activity Logs</h2>
                   <p className={`text-xs mt-0.5 ${muted}`}>A record of recent actions and security events on your account.</p>
                 </div>
 
                 <div className="space-y-3">
                   {[
-                    { icon: '🔑', title: 'Password changed', desc: 'You updated your account password.', time: '2 hours ago', color: 'text-[#0C7075]' },
-                    { icon: '📧', title: 'Email updated', desc: 'Your primary email address was changed.', time: 'Yesterday', color: 'text-[#0C7075]' },
-                    { icon: '🎯', title: 'New leads scouted', desc: 'Scanned 12 verified businesses in Lahore.', time: 'Yesterday', color: 'text-[#0C7075]' },
-                    { icon: '📊', title: 'Deal stage updated', desc: 'Zenith Tech moved to Negotiation.', time: '2 days ago', color: 'text-[#0C7075]' },
-                    { icon: '🌙', title: 'Theme preference changed', desc: 'Switched to dark mode.', time: '3 days ago', color: 'text-[#0C7075]' },
+                    { icon: <Key className="w-4 h-4" />, title: 'Password changed', desc: 'You updated your account password.', time: '2 hours ago', color: 'text-[#0C7075]' },
+                    { icon: <Mail className="w-4 h-4" />, title: 'Email updated', desc: 'Your primary email address was changed.', time: 'Yesterday', color: 'text-[#0C7075]' },
+                    { icon: <Target className="w-4 h-4" />, title: 'New leads scouted', desc: 'Scanned 12 verified businesses in Lahore.', time: 'Yesterday', color: 'text-[#0C7075]' },
+                    { icon: <BarChart3 className="w-4 h-4" />, title: 'Deal stage updated', desc: 'Zenith Tech moved to Negotiation.', time: '2 days ago', color: 'text-[#0C7075]' },
+                    { icon: <Moon className="w-4 h-4" />, title: 'Theme preference changed', desc: 'Switched to dark mode.', time: '3 days ago', color: 'text-[#0C7075]' },
                   ].map((log, i) => (
                     <div key={i} className={`p-4 rounded-2xl border flex items-start gap-3 ${isDark ? 'border-[#294D61]' : 'border-[#B9DDE4]'}`}>
                       <div className={`w-9 h-9 rounded-xl bg-[#EAF4F7] dark:bg-[#294D61] flex items-center justify-center text-base shrink-0 ${log.color}`}>
@@ -383,24 +388,24 @@ export default function ProfilePage() {
             {activeSection === 'preferences' && (
               <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 ${card}`}>
                 <div>
-                  <h2 className={`text-lg font-black ${heading}`}>⚙️ Preferences</h2>
+                  <h2 className={`text-lg font-black ${heading} flex items-center gap-2`}><Settings className="w-5 h-5" /> Preferences</h2>
                   <p className={`text-xs mt-0.5 ${muted}`}>Customize your experience, notifications, and appearance.</p>
                 </div>
 
                 {/* Appearance */}
                 <div className={`p-5 rounded-2xl border flex items-center justify-between gap-4 ${isDark ? 'border-[#294D61]' : 'border-[#B9DDE4]'}`}>
                   <div>
-                    <p className={`text-sm font-black ${heading}`}>🌙 Theme Appearance</p>
+                    <p className={`text-sm font-black ${heading} flex items-center gap-2`}><Moon className="w-5 h-5" /> Theme Appearance</p>
                     <p className={`text-xs mt-0.5 ${muted}`}>Switch between light and dark mode.</p>
                   </div>
-                  <button onClick={toggleTheme} className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white text-xs font-black hover:scale-105 transition-all shadow-md shrink-0">
-                    {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                  <button onClick={toggleTheme} className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white text-xs font-black hover:scale-105 transition-all shadow-md shrink-0 flex items-center gap-2">
+                    {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />} {isDark ? 'Light Mode' : 'Dark Mode'}
                   </button>
                 </div>
 
                 {/* Notifications */}
                 <div className="space-y-3">
-                  <p className={`text-sm font-black ${heading}`}>🔔 Notifications</p>
+                  <p className={`text-sm font-black ${heading} flex items-center gap-2`}><Bell className="w-5 h-5" /> Notifications</p>
                   {[
                     { label: 'Email me about new available leads', state: notifyEmail, set: setNotifyEmail },
                     { label: 'Notify me when a lead opens my proposal', state: notifyLead, set: setNotifyLead },
@@ -419,7 +424,7 @@ export default function ProfilePage() {
                 </div>
 
                 <button onClick={() => triggerNotify('Preferences saved successfully!')} className={btnPrimary}>
-                  💾 Save Preferences
+                  <Save className="inline w-4 h-4 mr-1" /> Save Preferences
                 </button>
               </div>
             )}

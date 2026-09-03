@@ -9,19 +9,16 @@ const conversationSchema = new Schema(
   {
     participants: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: Schema.Types.Mixed, // Allow both ObjectId and string
         required: true,
       },
     ],
     participantA: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: Schema.Types.Mixed, // Allow both ObjectId and string
       required: true,
     },
     participantB: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: Schema.Types.Mixed, // Allow both ObjectId and string
       required: true,
     },
     // Tracks the last active message for the sidebar preview

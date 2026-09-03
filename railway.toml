@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm install && npx tsc"
+buildCommand = "./node_modules/.bin/tsc || npx tsc || npm run build"
 
 [deploy]
 startCommand = "node dist/index.js"

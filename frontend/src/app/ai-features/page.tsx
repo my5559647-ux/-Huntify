@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { Bot, MessageSquare, Sparkles, Zap, Shield, Target, ChevronDown, X, ArrowLeft, Minus, Plus, Circle, ArrowUp, ArrowLeft as ArrowLeftIcon, Dot } from 'lucide-react';
 
 interface ChatMsg {
   id: number;
@@ -28,7 +29,7 @@ function getAIResponse(input: string): string {
     return 'I recommend running a full AI Website Audit. Paste any client URL into our Auditor tool to instantly check load speed, mobile responsiveness, and missing SEO meta tags. It will output a score (e.g. 58/100) plus concrete redesign recommendations to pitch the client.';
   }
   if (q.includes('score') || q.includes('lead') && q.includes('deal')) {
-    return 'For a $50,000 deal, I would classify this as 🔥 Hot Lead (High Priority). Recommended action: Send an immediate personalized proposal and book a demo. Use the Lead Scoring Assistant to auto-generate this for any deal size.';
+    return 'For a $50,000 deal, I would classify this as Hot Lead (High Priority). Recommended action: Send an immediate personalized proposal and book a demo. Use the Lead Scoring Assistant to auto-generate this for any deal size.';
   }
   if (q.includes('niche') || q.includes('market') || q.includes('profitable')) {
     return 'Top trending Pakistani niches right now: 1) Software Houses & IT Agencies, 2) Textile & Garment Exporters, 3) E-commerce & Retail Brands. Use the Niche Intelligence tool to refresh demand data and filter by city.';
@@ -49,7 +50,7 @@ export default function AIFeaturesPage() {
   const [chatInput, setChatInput] = useState('');
   const [chatTyping, setChatTyping] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMsg[]>([
-    { id: 1, sender: 'ai', text: '👋 Hi! I am your Huntify AI Assistant. Ask me anything about lead generation, website audits, or CRM workflows.' },
+    { id: 1, sender: 'ai', text: 'Hi! I am your Huntify AI Assistant. Ask me anything about lead generation, website audits, or CRM workflows.' },
   ]);
   const chatBottomRef = useRef<HTMLDivElement>(null);
 
@@ -139,7 +140,7 @@ export default function AIFeaturesPage() {
       triggerToast('Please provide lead name and deal size!');
       return;
     }
-    const score = Number(dealSize) > 50000 ? '🔥 Hot Lead (High Priority Conversion)' : '⚡ Warm Lead (Needs Follow-up)';
+    const score = Number(dealSize) > 50000 ? 'Hot Lead (High Priority Conversion)' : 'Warm Lead (Needs Follow-up)';
     setScoreResult({ name: leadName, potentialScore: score, recommendedAction: 'Immediate personalized proposal outreach.' });
     triggerToast('Lead score calculated!');
   };
@@ -166,7 +167,7 @@ export default function AIFeaturesPage() {
       {/* Floating Notification */}
       {notification && (
         <div className={`fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-6 py-3.5 rounded-2xl shadow-2xl border border-[#03F3DA]/50 animate-bounce backdrop-blur-md`}>
-          ✨ {notification}
+          {notification}
         </div>
       )}
 
@@ -176,7 +177,7 @@ export default function AIFeaturesPage() {
         {/* Page Banner */}
         <div className={`p-6 sm:p-8 rounded-3xl border shadow-sm space-y-3 ${isDarkMode ? 'bg-[#072E33]/70 border-[#294D61]' : 'bg-gradient-to-r from-[#EAF4F7] to-[#F4FAFC] border-[#B9DDE4]'}`}>
           <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm inline-block ${isDarkMode ? 'bg-[#294D61] text-[#03F3DA] border-[#0C7075]' : 'bg-white text-[#0C7075] border-[#B9DDE4]'}`}>
-            🤖 Next-Gen AI Intelligence Suite
+            Next-Gen AI Intelligence Suite
           </span>
           <h1 className={`text-2xl sm:text-3xl font-black ${heading}`}>Automate Outreach & Client Conversion with AI</h1>
           <p className={`text-xs sm:text-sm leading-relaxed max-w-4xl ${muted}`}>
@@ -189,19 +190,19 @@ export default function AIFeaturesPage() {
           {/* Chat Header */}
           <div className={`flex items-center justify-between px-5 py-4 border-b ${isDarkMode ? 'border-[#294D61]' : 'border-[#B9DDE4]'}`}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center text-lg shadow-lg border border-[#03F3DA]/40">
-                🤖
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                <Bot className="w-5 h-5 text-white" />
               </div>
               <div>
                 <h2 className={`text-sm font-black ${heading}`}>Huntify AI Assistant</h2>
-                <p className="text-[10px] font-bold text-[#03F3DA]">● Online • Tailored to B2B Lead Gen, Auditing & CRM</p>
+                <p className="text-[10px] font-bold text-[#03F3DA] flex items-center gap-1"><Circle className="w-1.5 h-1.5 fill-[#03F3DA]" /> Online • Tailored to B2B Lead Gen, Auditing & CRM</p>
               </div>
             </div>
             <button
               onClick={() => setChatOpen(!chatOpen)}
               className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm border transition-all ${isDarkMode ? 'bg-[#294D61] border-[#0C7075] text-white' : 'bg-[#EAF4F7] border-[#B9DDE4] text-[#072E33]'}`}
             >
-              {chatOpen ? '−' : '+'}
+              {chatOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
             </button>
           </div>
 
@@ -263,9 +264,9 @@ export default function AIFeaturesPage() {
                   />
                   <button
                     onClick={() => sendChat()}
-                    className="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white font-black flex items-center justify-center text-base shadow-lg hover:scale-105 transition-transform border border-[#03F3DA]/50"
+                    className="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white font-black flex items-center justify-center shadow-lg hover:scale-105 transition-transform border border-[#03F3DA]/50"
                   >
-                    ➤
+                    <MessageSquare className="w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -280,7 +281,9 @@ export default function AIFeaturesPage() {
           <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 flex flex-col justify-between ${card}`}>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center font-black text-sm">✉️</div>
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                  <MessageSquare className="w-5 h-5 text-white" />
+                </div>
                 <div>
                   <h2 className={`text-lg font-black ${heading}`}>AI Cold Email & Outreach Generator</h2>
                   <p className={`text-xs ${muted}`}>Create hyper-personalized sales pitches instantly.</p>
@@ -313,7 +316,7 @@ export default function AIFeaturesPage() {
                   disabled={isGeneratingEmail}
                   className="w-full py-3.5 rounded-xl bg-[#0C7075] text-white font-black text-xs hover:bg-[#0A5A5E] transition-all shadow-md disabled:opacity-50"
                 >
-                  {isGeneratingEmail ? 'AI is writing email...' : 'Generate Cold Email 🚀'}
+                  {isGeneratingEmail ? 'AI is writing email...' : 'Generate Cold Email'}
                 </button>
               </form>
 
@@ -330,7 +333,9 @@ export default function AIFeaturesPage() {
           <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 flex flex-col justify-between ${card}`}>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center font-black text-sm">🔍</div>
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
                 <div>
                   <h2 className={`text-lg font-black ${heading}`}>AI Website & SEO Auditor</h2>
                   <p className={`text-xs ${muted}`}>Analyze prospect websites to find flaws & pitch redesigns.</p>
@@ -353,7 +358,7 @@ export default function AIFeaturesPage() {
                   disabled={isAuditing}
                   className="w-full py-3.5 rounded-xl bg-[#0C7075] text-white font-black text-xs hover:bg-[#0A5A5E] transition-all shadow-md disabled:opacity-50"
                 >
-                  {isAuditing ? 'Scanning website metrics...' : 'Run AI Website Audit 🔍'}
+                  {isAuditing ? 'Scanning website metrics...' : 'Run AI Website Audit'}
                 </button>
               </form>
 
@@ -361,10 +366,10 @@ export default function AIFeaturesPage() {
                 <div className={`mt-4 p-4 rounded-2xl border space-y-2 text-xs ${soft}`}>
                   <span className={`text-[10px] font-bold uppercase text-[#0C7075]`}>Audit Report Summary</span>
                   <div className={`space-y-1 font-medium ${muted}`}>
-                    <p>⚡ Performance Score: <span className="font-black text-[#0C7075]">{auditResult.score}</span></p>
-                    <p>🐌 Load Speed: {auditResult.speed}</p>
-                    <p>🛠️ SEO Health: {auditResult.seoStatus}</p>
-                    <p className={`pt-2 font-bold text-[#0C7075]`}>💡 {auditResult.recommendation}</p>
+                    <p>Performance Score: <span className="font-black text-[#0C7075]">{auditResult.score}</span></p>
+                    <p>Load Speed: {auditResult.speed}</p>
+                    <p>SEO Health: {auditResult.seoStatus}</p>
+                    <p className={`pt-2 font-bold text-[#0C7075]`}>{auditResult.recommendation}</p>
                   </div>
                 </div>
               )}
@@ -375,7 +380,9 @@ export default function AIFeaturesPage() {
           <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 flex flex-col justify-between ${card}`}>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center font-black text-sm">📊</div>
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                  <Zap className="w-5 h-5 text-white" />
+                </div>
                 <div>
                   <h2 className={`text-lg font-black ${heading}`}>AI Lead Scoring Assistant</h2>
                   <p className={`text-xs ${muted}`}>Prioritize prospects based on budget and conversion probability.</p>
@@ -407,7 +414,7 @@ export default function AIFeaturesPage() {
                   type="submit"
                   className="w-full py-3.5 rounded-xl bg-[#0C7075] text-white font-black text-xs hover:bg-[#0A5A5E] transition-all shadow-md"
                 >
-                  Calculate Lead Score ⚡
+                  Calculate Lead Score
                 </button>
               </form>
 
@@ -425,7 +432,9 @@ export default function AIFeaturesPage() {
           <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 flex flex-col justify-between ${card}`}>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center font-black text-sm">🎯</div>
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] text-white flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                  <Target className="w-5 h-5 text-white" />
+                </div>
                 <div>
                   <h2 className={`text-lg font-black ${heading}`}>AI Niche & Keyword Intelligence</h2>
                   <p className={`text-xs ${muted}`}>Discover high-demand local SEO keywords and profitable niches.</p>
@@ -454,7 +463,7 @@ export default function AIFeaturesPage() {
                 onClick={() => triggerToast('AI Market Database updated successfully!')}
                 className={`w-full py-3.5 rounded-xl font-black text-xs border transition-all shadow-sm ${isDarkMode ? 'bg-[#072E33] text-[#03F3DA] border-[#0C7075] hover:bg-[#0C7075] hover:text-white' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4] hover:bg-[#0C7075] hover:text-white'}`}
               >
-                Refresh Market Insights 🔄
+                Refresh Market Insights
               </button>
             </div>
           </div>
@@ -469,10 +478,10 @@ export default function AIFeaturesPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             <Link href="/leadfinder" className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white font-black text-xs shadow-lg hover:scale-105 transition-transform border border-[#03F3DA]/50">
-              🎯 Open Lead Finder
+              Open Lead Finder
             </Link>
             <Link href="/messages" className="px-6 py-3 rounded-2xl bg-[#EAF4F7] text-[#0C7075] font-black text-xs border border-[#B9DDE4] hover:bg-[#D5ECF0] transition-all">
-              💬 Open Messages
+              Open Messages
             </Link>
           </div>
         </div>

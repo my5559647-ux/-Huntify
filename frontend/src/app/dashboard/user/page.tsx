@@ -21,15 +21,15 @@ export default function UserDashboard() {
           <h2 className="text-2xl font-black mb-8">Lead<span className="text-[#03F3DA]">Flow.ai</span> <span className="text-xs bg-[#0C7075]/20 text-[#0C7075] px-2 py-0.5 rounded-full">User Hub</span></h2>
           <div className="space-y-2">
             <Link href="/dashboard/user" className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs bg-[#0C7075] text-white">
-              📊 My Dashboard
+              My Dashboard
             </Link>
             <Link href="/lead-finder" className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs ${isDarkMode ? 'hover:bg-[#072E33] text-[#A9C6D4]' : 'hover:bg-[#EAF4F7] text-[#294D61]'}`}>
-              🔍 Lead Finder & Audit
+              Lead Finder & Audit
             </Link>
           </div>
         </div>
         <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-2 rounded-xl border text-xs font-bold">
-          {isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
         </button>
       </aside>
 
@@ -37,7 +37,7 @@ export default function UserDashboard() {
       <main className="flex-1 p-6 lg:p-10 space-y-6 max-w-6xl mx-auto">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-black">Welcome Back, Ismab! 👋</h1>
+            <h1 className="text-2xl font-black">Welcome Back, Ismab!</h1>
             <p className="text-xs opacity-70 mt-1">Here is your personal lead generation and campaign summary.</p>
           </div>
           <span className="px-3 py-1.5 rounded-full bg-[#0C7075]/10 text-[#0C7075] font-bold text-xs border border-[#0C7075]/20">

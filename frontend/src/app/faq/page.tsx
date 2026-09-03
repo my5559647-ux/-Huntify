@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { ChevronDown } from 'lucide-react';
 
 export default function FAQPage() {
   const { theme } = useAuth();
@@ -51,7 +52,7 @@ export default function FAQPage() {
       {/* ================= FAQ HERO & SEARCH ================= */}
       <section className="px-6 lg:px-16 pt-20 pb-12 text-center max-w-4xl mx-auto space-y-6">
         <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold shadow-2xl border backdrop-blur-md ${isDarkMode ? 'bg-[#072E33]/80 text-[#03F3DA] border-[#0C7075]/60' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
-          <span>💡 Got Questions? We Have Answers</span>
+          <span>Got Questions? We Have Answers</span>
         </div>
 
         <h1 className={`text-3xl sm:text-5xl font-black tracking-tight ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>
@@ -91,7 +92,7 @@ export default function FAQPage() {
                   >
                     <span className={isDarkMode ? 'text-white' : 'text-[#072E33]'}>{faq.q}</span>
                     <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs shrink-0 transition-transform ${isOpen ? 'rotate-180 bg-[#0C7075] text-white' : (isDarkMode ? 'bg-[#294D61] text-[#03F3DA]' : 'bg-[#EAF4F7] text-[#0C7075]')}`}>
-                      ▼
+                      <ChevronDown className="w-4 h-4" />
                     </span>
                   </button>
 
@@ -123,7 +124,7 @@ export default function FAQPage() {
               href="/leadfinder"
               className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white font-black text-xs shadow-lg hover:scale-105 transition-transform border border-[#03F3DA]/50"
             >
-              🎯 Try Lead Finder
+              Try Lead Finder
             </a>
           </div>
         </div>

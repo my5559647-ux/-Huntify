@@ -1,7 +1,7 @@
 import { Server as HttpServer } from 'http';
 import { Server } from 'socket.io';
-import Conversation from './models/Conversation.js';
-import Message from './models/Message.js';
+import Conversation from './models/Conversation';
+import Message from './models/Message';
 
 /**
  * Initializes the real-time Socket.io server.

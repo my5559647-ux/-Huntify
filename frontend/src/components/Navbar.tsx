@@ -27,7 +27,7 @@ const LINKS: NavLink[] = [
   { name: 'FAQ', href: '/faq', key: 'faq' },
 ];
 
-const AUTH_GUARDED_KEYS = ['leadfinder', 'crm', 'pipeline', 'cities', 'aifeatures'];
+const AUTH_GUARDED_KEYS = ['messages', 'leadfinder', 'crm', 'pipeline', 'cities', 'aifeatures'];
 
 export default function Navbar({ active }: NavbarProps) {
   const { isAuthenticated, theme, openGuardModal } = useAuth();

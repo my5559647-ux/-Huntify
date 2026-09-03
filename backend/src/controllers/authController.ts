@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
-import User from '../models/User.js';
+import User from '../models/User';
 
 // ─── Secure password helpers using Node's built-in scrypt (no extra deps) ───
 // Format: salt:hash  (both hex-encoded)

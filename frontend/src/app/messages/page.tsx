@@ -3,8 +3,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
-import { connectSocket, disconnectSocket } from '@/lib/socket';
+import { connectSocket, disconnectSocket, handleVisibilityChange } from '@/lib/socket';
 import type { Socket } from 'socket.io-client';
+import { MessageSquare, ArrowLeft, Paperclip, FileText, Circle, Dot, Send } from 'lucide-react';
 
 interface FileMeta {
   name: string;
@@ -99,8 +100,8 @@ const MOCK_CONTACTS: Contact[] = [
   },
 ];
 
-const API = 'http://localhost:5000/api/chats';
-const SOCKET_URL = 'http://localhost:5000';
+const API = 'https://huntify-production-7c9c.up.railway.app/api/chats';
+const SOCKET_URL = 'https://huntify-production-7c9c.up.railway.app';
 
 // Helper to derive initials for avatars
 const initials = (name: string) =>
@@ -280,11 +281,15 @@ export default function MessagesPage() {
       if (conversationId === activeContactId) setTypingName(name);
     });
 
+    // Handle page visibility changes to prevent Back-Forward Cache issues
+    const cleanupVisibility = handleVisibilityChange(user.id);
+
     return () => {
       socket.off('message:new');
       socket.off('messages:read');
       socket.off('typing');
       socket.off('connect');
+      cleanupVisibility?.();
       disconnectSocket();
       socketRef.current = null;
     };
@@ -347,7 +352,7 @@ export default function MessagesPage() {
       setContacts((prev) =>
         prev.map((c) =>
           c.id === convId
-            ? { ...c, preview: file ? `📎 ${file.name}` : content, unread: 0, messages: [...c.messages, optimistic] }
+            ? { ...c, preview: file ? `File: ${file.name}` : content, unread: 0, messages: [...c.messages, optimistic] }
             : c
         )
       );
@@ -433,7 +438,7 @@ export default function MessagesPage() {
             {/* Sidebar Header */}
             <div className={`p-4 border-b ${isDarkMode ? 'border-[#294D61]' : 'border-[#B9DDE4]'}`}>
               <div className="flex items-center justify-between mb-3">
-                <h2 className={`font-black text-sm ${isDarkMode ? 'text-white' : 'text-[#0B3C40]'}`}>💬 Messages</h2>
+                <h2 className={`font-black text-sm ${isDarkMode ? 'text-white' : 'text-[#0B3C40]'} flex items-center gap-2`}><MessageSquare className="w-4 h-4" /> Messages</h2>
                 <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${isDarkMode ? 'bg-[#0C7075] text-white' : 'bg-[#0C7075] text-white'}`}>
                   {contacts.reduce((n, c) => n + c.unread, 0)} unread
                 </span>
@@ -493,7 +498,7 @@ export default function MessagesPage() {
                   onClick={() => setMobileChatOpen(false)}
                   className={`md:hidden p-2 rounded-xl border ${isDarkMode ? 'bg-[#072E33] border-[#294D61] text-white' : 'bg-[#EAF4F7] border-[#B9DDE4] text-[#0B3C40]'}`}
                 >
-                  ←
+                  <ArrowLeft className="w-4 h-4" />
                 </button>
                 <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center text-white text-xs font-black shadow">
                   {activeContact.avatar}
@@ -501,7 +506,7 @@ export default function MessagesPage() {
 <div className="min-w-0">
                   <h2 className={`text-xs font-black truncate ${isDarkMode ? 'text-white' : 'text-[#0B3C40]'}`}>{activeContact.name}</h2>
                   <p className={`text-[10px] font-semibold ${typingName ? 'text-[#03F3DA]' : (activeContact.status === 'online' ? 'text-[#03F3DA]' : (isDarkMode ? 'text-[#6DA5C0]' : 'text-[#6DA5C0]'))}`}>
-                    {typingName ? `${typingName} is typing...` : (activeContact.status === 'online' ? '● Online' : activeContact.lastSeen)}
+                    {typingName ? `${typingName} is typing...` : (activeContact.status === 'online' ? <span className="flex items-center gap-1"><Circle className="w-1.5 h-1.5 fill-[#03F3DA]" /> Online</span> : activeContact.lastSeen)}
                   </p>
                 </div>
               </div>
@@ -552,11 +557,11 @@ export default function MessagesPage() {
                               {msg.file && (
                                 <div className={`mt-2 flex items-center gap-3 p-2.5 rounded-xl border ${isMine ? 'bg-white/10 border-white/20' : (isDarkMode ? 'bg-[#05161A] border-[#294D61]' : 'bg-[#F4FAFC] border-[#B9DDE4]')}`}>
                                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm ${isMine ? 'bg-white/20 text-white' : 'bg-[#D5ECF0] text-[#0C7075]'}`}>
-                                    📄
+                                    <FileText className="w-4 h-4" />
                                   </div>
                                   <div className="min-w-0">
                                     <p className={`text-[11px] font-black truncate ${isMine ? 'text-white' : (isDarkMode ? 'text-white' : 'text-[#0B3C40]')}`}>{msg.file.name}</p>
-                                    <p className={`text-[10px] ${isMine ? 'text-white/70' : (isDarkMode ? 'text-[#6DA5C0]' : 'text-[#6DA5C0]')}`}>{msg.file.size} • {msg.file.type}</p>
+                                    <p className={`text-[10px] ${isMine ? 'text-white/70' : (isDarkMode ? 'text-[#6DA5C0]' : 'text-[#6DA5C0]')}`}>{msg.file.size} <Dot className="w-1 h-1 inline mx-1" /> {msg.file.type}</p>
                                   </div>
                                   {msg.file.url && (
                                     <a
@@ -600,7 +605,7 @@ export default function MessagesPage() {
                   className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center text-base border transition-all ${isDarkMode ? 'bg-[#072E33] border-[#294D61] text-white hover:border-[#03F3DA]' : 'bg-[#EAF4F7] border-[#B9DDE4] text-[#0C7075] hover:border-[#0C7075]'}`}
                   title="Attach file"
                 >
-                  📎
+                  <Paperclip className="w-4 h-4" />
                 </button>
 
                 <input
@@ -623,7 +628,7 @@ export default function MessagesPage() {
                   className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white font-black flex items-center justify-center text-base shadow-lg hover:scale-105 transition-transform border border-[#03F3DA]/50"
                   title="Send"
                 >
-                  ➤
+                  <Send className="w-4 h-4" />
                 </button>
               </div>
             </div>

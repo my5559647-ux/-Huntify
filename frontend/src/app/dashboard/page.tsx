@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { Home, Target, Folder, BarChart3, Settings, User, Briefcase, Mail, Trophy, ArrowRight, X, Sun, Moon, ChevronDown, Dot } from 'lucide-react';
 
 type SectionKey = 'overview' | 'leadfinder' | 'crm' | 'pipeline' | 'settings' | 'profile';
 
@@ -36,6 +37,21 @@ export default function DashboardPage() {
   const [editAvatar, setEditAvatar] = useState(user?.avatar || '');
 
   const isDark = theme === 'dark';
+
+  const getIcon = (iconName: string) => {
+    const icons: { [key: string]: JSX.Element } = {
+      home: <Home className="w-5 h-5" />,
+      target: <Target className="w-5 h-5" />,
+      folder: <Folder className="w-5 h-5" />,
+      chart: <BarChart3 className="w-5 h-5" />,
+      settings: <Settings className="w-5 h-5" />,
+      user: <User className="w-5 h-5" />,
+      briefcase: <Briefcase className="w-5 h-5" />,
+      mail: <Mail className="w-5 h-5" />,
+      trophy: <Trophy className="w-5 h-5" />,
+    };
+    return icons[iconName] || icons.home;
+  };
 
   const triggerNotify = (msg: string) => {
     setNotify(msg);
@@ -72,19 +88,19 @@ export default function DashboardPage() {
   };
 
   const navItems: { key: SectionKey; label: string; icon: string; href?: string }[] = [
-    { key: 'overview', label: 'Overview', icon: '🏠' },
-    { key: 'leadfinder', label: 'Lead Finder', icon: '🎯', href: '/leadfinder' },
-    { key: 'crm', label: 'CRM Hub', icon: '📇', href: '/crm' },
-    { key: 'pipeline', label: 'Deal Pipeline', icon: '📊', href: '/pipeline' },
-    { key: 'settings', label: 'Settings', icon: '⚙️' },
-    { key: 'profile', label: 'Profile', icon: '👤' },
+    { key: 'overview', label: 'Overview', icon: 'home' },
+    { key: 'leadfinder', label: 'Lead Finder', icon: 'target', href: '/leadfinder' },
+    { key: 'crm', label: 'CRM Hub', icon: 'folder', href: '/crm' },
+    { key: 'pipeline', label: 'Deal Pipeline', icon: 'chart', href: '/pipeline' },
+    { key: 'settings', label: 'Settings', icon: 'settings' },
+    { key: 'profile', label: 'Profile', icon: 'user' },
   ];
 
   const statCards = [
-    { label: 'Active Leads', value: '48', delta: '+12 this week', icon: '🎯', color: 'from-[#0C7075] to-[#0A5A5E]' },
-    { label: 'Open Deals', value: '12', delta: '≈ $4,800 value', icon: '💼', color: 'from-[#0A5A5E] to-[#072E33]' },
-    { label: 'Pitched', value: '137', delta: '62% reply rate', icon: '✉️', color: 'from-[#03F3DA] to-[#0C7075]' },
-    { label: 'Closed Wins', value: '9', delta: 'Avg. $520 / deal', icon: '🏆', color: 'from-[#50C878] to-[#2E8B57]' },
+    { label: 'Active Leads', value: '48', delta: '+12 this week', icon: 'target', color: 'from-[#0C7075] to-[#0A5A5E]' },
+    { label: 'Open Deals', value: '12', delta: '≈ $4,800 value', icon: 'briefcase', color: 'from-[#0A5A5E] to-[#072E33]' },
+    { label: 'Pitched', value: '137', delta: '62% reply rate', icon: 'mail', color: 'from-[#03F3DA] to-[#0C7075]' },
+    { label: 'Closed Wins', value: '9', delta: 'Avg. $520 / deal', icon: 'trophy', color: 'from-[#50C878] to-[#2E8B57]' },
   ];
 
   const recentLeads = [
@@ -110,7 +126,7 @@ export default function DashboardPage() {
       {/* Toast */}
       {notify && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce">
-          ✨ {notify}
+          {notify}
         </div>
       )}
 
@@ -156,7 +172,7 @@ export default function DashboardPage() {
                       : 'text-[#294D61] hover:bg-[#EAF4F7] hover:text-[#0C7075]'
                   }`}
                 >
-                  <span className="text-sm">{item.icon}</span>
+                  <span className="text-sm">{getIcon(item.icon)}</span>
                   {item.label}
                 </span>
               );
@@ -179,7 +195,7 @@ export default function DashboardPage() {
               className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-[#EAF4F7] text-[#0C7075] dark:hover:bg-[#072E33] dark:text-[#03F3DA]"
             >
               <span className="flex items-center gap-3">
-                <span className="text-sm">{isDark ? '☀️' : '🌙'}</span>
+                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                 {isDark ? 'Light Mode' : 'Dark Mode'}
               </span>
               <span className={`w-8 h-4 rounded-full p-0.5 transition-colors ${isDark ? 'bg-[#0A5A5E]' : 'bg-[#03F3DA]'}`}>
@@ -191,7 +207,7 @@ export default function DashboardPage() {
               onClick={handleLogout}
               className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-black text-emerald-500 hover:bg-emerald-500/10 transition-all"
             >
-              <span className="text-sm">🚪</span> Logout Session
+              <ArrowRight className="w-4 h-4" /> Logout Session
             </button>
 
             {!confirmDelete ? (
@@ -199,7 +215,7 @@ export default function DashboardPage() {
                 onClick={() => setConfirmDelete(true)}
                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-emerald-400 hover:bg-emerald-500/10 transition-all"
               >
-                <span className="text-sm">🗑️</span> Delete Account
+                <X className="w-4 h-4" /> Delete Account
               </button>
             ) : (
               <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
@@ -233,7 +249,7 @@ export default function DashboardPage() {
           >
             <div>
               <h1 className={`text-xl font-black capitalize ${heading}`}>{activeSection}</h1>
-              <p className={`text-[11px] ${muted}`}>Welcome back, {user?.name || 'Guest'} 👋</p>
+              <p className={`text-[11px] ${muted}`}>Welcome back, {user?.name || 'Guest'}</p>
             </div>
             <div className="flex items-center gap-3">
               <button
@@ -241,7 +257,7 @@ export default function DashboardPage() {
                 className={`p-2.5 rounded-xl border text-sm transition-all ${card}`}
                 aria-label="Toggle theme"
               >
-                {isDark ? '☀️' : '🌙'}
+                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
               <button
                 onClick={handleLogout}
@@ -266,7 +282,7 @@ export default function DashboardPage() {
                     : 'bg-white text-[#294D61] border border-[#B9DDE4]'
                 }`}
               >
-                {item.icon} {item.label}
+                {getIcon(item.icon)} {item.label}
               </button>
             ))}
           </div>
@@ -280,7 +296,7 @@ export default function DashboardPage() {
                   {statCards.map((s, i) => (
                     <div key={i} className={`p-5 rounded-3xl border shadow-sm space-y-3 ${card}`}>
                       <div className="flex items-center justify-between">
-                        <span className={`text-lg`}>{s.icon}</span>
+                        <span className={`text-lg`}>{getIcon(s.icon)}</span>
                         <span className={`text-[10px] font-bold ${isDark ? 'text-[#A9C6D4]' : 'text-[#294D61]'}`}>{s.delta}</span>
                       </div>
                       <div>
@@ -294,23 +310,23 @@ export default function DashboardPage() {
 
                 {/* Quick actions */}
                 <div className={`p-6 rounded-3xl border shadow-sm space-y-4 ${card}`}>
-                  <h2 className={`text-sm font-black ${heading}`}>⚡ Quick Actions</h2>
+                  <h2 className={`text-sm font-black ${heading}`}>Quick Actions</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <Link href="/leadfinder" className="p-4 rounded-2xl bg-[#0C7075] text-white text-xs font-black hover:bg-[#0A5A5E] transition-all shadow-md text-center">
-                      🎯 Scout New Leads
+                      Scout New Leads
                     </Link>
                     <Link href="/crm" className="p-4 rounded-2xl bg-[#EAF4F7] text-[#0C7075] text-xs font-black hover:bg-[#B9DDE4] transition-all text-center dark:bg-[#294D61] dark:text-[#03F3DA]">
-                      📇 Open CRM Hub
+                      Open CRM Hub
                     </Link>
                     <Link href="/pipeline" className={`p-4 rounded-2xl border text-xs font-black transition-all text-center ${isDark ? 'border-[#294D61] hover:border-[#0C7075]' : 'border-[#B9DDE4] hover:border-[#0C7075]'}`}>
-                      📊 View Pipeline
+                      View Pipeline
                     </Link>
                   </div>
                 </div>
 
                 {/* Recent leads */}
                 <div className={`p-6 rounded-3xl border shadow-sm space-y-4 ${card}`}>
-                  <h2 className={`text-sm font-black ${heading}`}>📋 Recent Leads</h2>
+                  <h2 className={`text-sm font-black ${heading}`}>Recent Leads</h2>
                   <div className="space-y-3">
                     {recentLeads.map((l, i) => (
                       <div key={i} className="flex items-center justify-between p-4 rounded-2xl border border-[#B9DDE4] dark:border-[#294D61]">
@@ -341,7 +357,7 @@ export default function DashboardPage() {
             {/* ===== SETTINGS ===== */}
             {activeSection === 'settings' && (
               <div className={`p-6 lg:p-8 rounded-3xl border shadow-sm space-y-6 ${card}`}>
-                <h2 className={`text-lg font-black ${heading}`}>⚙️ Settings</h2>
+                <h2 className={`text-lg font-black ${heading}`}>Settings</h2>
                 <div className="flex items-center justify-between p-5 rounded-2xl border border-[#B9DDE4] dark:border-[#294D61]">
                   <div>
                     <p className={`text-sm font-black ${heading}`}>Appearance</p>
@@ -351,7 +367,7 @@ export default function DashboardPage() {
                     onClick={toggleTheme}
                     className="px-4 py-2.5 rounded-xl bg-[#0C7075] text-white text-xs font-black hover:bg-[#0A5A5E] transition-all shadow-md"
                   >
-                    {isDark ? '☀️ Switch to Light' : '🌙 Switch to Dark'}
+                    {isDark ? 'Switch to Light' : 'Switch to Dark'}
                   </button>
                 </div>
 
@@ -362,10 +378,10 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex flex-wrap gap-3">
                     <button onClick={handleLogout} className="px-4 py-2.5 rounded-xl bg-[#0C7075] text-white text-xs font-black hover:bg-[#0A5A5E] transition-all shadow-md">
-                      🚪 Logout
+                      Logout
                     </button>
                     <button onClick={() => setConfirmDelete(true)} className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-black hover:bg-emerald-700 transition-all shadow-md">
-                      🗑️ Delete Account
+                      Delete Account
                     </button>
                   </div>
                 </div>
@@ -375,7 +391,7 @@ export default function DashboardPage() {
             {/* ===== PROFILE ===== */}
             {activeSection === 'profile' && (
               <div className={`p-6 lg:p-8 rounded-3xl border shadow-sm space-y-6 ${card}`}>
-                <h2 className={`text-lg font-black ${heading}`}>👤 Profile</h2>
+                <h2 className={`text-lg font-black ${heading}`}>Profile</h2>
 
                 {/* Avatar editor */}
                 <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -388,7 +404,7 @@ export default function DashboardPage() {
                   </div>
                   <label className="cursor-pointer">
                     <span className="inline-block px-5 py-2.5 rounded-xl bg-[#EAF4F7] text-[#0C7075] text-xs font-black hover:bg-[#B9DDE4] transition-all dark:bg-[#294D61] dark:text-[#03F3DA]">
-                      📷 Change Photo
+                      Change Photo
                     </span>
                     <input type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" />
                   </label>
@@ -423,15 +439,15 @@ export default function DashboardPage() {
                     onClick={saveProfile}
                     className="px-6 py-3 rounded-2xl bg-[#0C7075] text-white text-xs font-black hover:bg-[#0A5A5E] transition-all shadow-md"
                   >
-                    💾 Save Changes
+                    Save Changes
                   </button>
                   {saved && (
-                    <span className="text-xs font-bold text-[#1F7A3D]">✓ Profile saved!</span>
+                    <span className="text-xs font-bold text-[#1F7A3D]">Profile saved!</span>
                   )}
                 </div>
 
                 <div className="p-4 rounded-2xl bg-[#EAF4F7] border border-[#B9DDE4] text-xs text-[#0C7075] dark:bg-[#294D61] dark:text-[#03F3DA]">
-                  🔒 Your profile, avatar, and settings are stored securely on this device and synced with your Huntify account.
+                  Your profile, avatar, and settings are stored securely on this device and synced with your Huntify account.
                 </div>
               </div>
             )}
@@ -440,7 +456,7 @@ export default function DashboardPage() {
             {(activeSection === 'leadfinder' || activeSection === 'crm' || activeSection === 'pipeline') && (
               <div className={`p-10 rounded-3xl border shadow-sm text-center space-y-4 ${card}`}>
                 <span className="text-4xl">
-                  {activeSection === 'leadfinder' ? '🎯' : activeSection === 'crm' ? '📇' : '📊'}
+                  <Dot className="w-10 h-10 fill-[#0C7075]" />
                 </span>
                 <h2 className={`text-xl font-black ${heading}`}>
                   {activeSection === 'leadfinder' ? 'Lead Finder' : activeSection === 'crm' ? 'CRM Hub' : 'Deal Pipeline'}
@@ -450,7 +466,7 @@ export default function DashboardPage() {
                   href={activeSection === 'leadfinder' ? '/leadfinder' : activeSection === 'crm' ? '/crm' : '/pipeline'}
                   className="inline-block px-6 py-3 rounded-2xl bg-[#0C7075] text-white text-xs font-black hover:bg-[#0A5A5E] transition-all shadow-md"
                 >
-                  Open {activeSection === 'leadfinder' ? 'Lead Finder' : activeSection === 'crm' ? 'CRM Hub' : 'Pipeline'} →
+                  Open {activeSection === 'leadfinder' ? 'Lead Finder' : activeSection === 'crm' ? 'CRM Hub' : 'Pipeline'} <ArrowRight className="inline w-4 h-4 ml-1" />
                 </Link>
               </div>
             )}

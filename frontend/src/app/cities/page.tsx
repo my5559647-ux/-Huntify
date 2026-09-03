@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { ArrowLeft, X } from 'lucide-react';
 
 export default function CityHubsPage() {
   const { theme } = useAuth();
@@ -155,15 +156,15 @@ export default function CityHubsPage() {
           <Link href="/faq" className="px-3 py-1.5 rounded-xl hover:bg-[#EAF4F7] hover:text-[#0C7075] transition-all">FAQ</Link>
         </nav>
 
-        <Link href="/" className="px-4 py-2 rounded-xl bg-[#EAF4F7] text-xs font-bold text-[#0C7075] border border-[#B9DDE4] hover:bg-[#D5ECF0] transition-all">
-          ← Dashboard
+        <Link href="/" className="px-4 py-2 rounded-xl bg-[#EAF4F7] text-xs font-bold text-[#0C7075] border border-[#B9DDE4] hover:bg-[#D5ECF0] transition-all flex items-center gap-2">
+          <ArrowLeft className="w-4 h-4" /> Dashboard
         </Link>
       </header>
 
       {/* Floating Notification */}
       {notification && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce">
-          ✨ {notification}
+          {notification}
         </div>
       )}
 
@@ -173,7 +174,7 @@ export default function CityHubsPage() {
 {/* Page Purpose & Guide Banner */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#EAF4F7] to-[#F4FAFC] border border-[#B9DDE4] shadow-sm space-y-3">
           <span className="px-3.5 py-1.5 rounded-full bg-white text-[#0C7075] text-xs font-bold border border-[#B9DDE4] shadow-sm inline-block">
-            📌 Page Purpose & Guide: Pakistan Nationwide City & District Hubs
+            Page Purpose & Guide: Pakistan Nationwide City & District Hubs
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-[#072E33]">Nationwide Pakistani Cities & Commercial Markets</h1>
           <p className="text-xs sm:text-sm text-[#294D61] leading-relaxed max-w-4xl">
@@ -256,7 +257,7 @@ export default function CityHubsPage() {
                         }}
                         className="px-3.5 py-2 rounded-xl bg-[#F4FAFC] text-[#0C7075] font-bold border border-[#B9DDE4] hover:bg-[#0C7075] hover:text-white transition-all"
                       >
-                        Inspect Hub ↗
+                        Inspect Hub
                       </button>
                     </td>
                   </tr>
@@ -289,7 +290,7 @@ export default function CityHubsPage() {
                 onClick={() => setIsCityModalOpen(false)}
                 className="w-9 h-9 rounded-xl bg-[#F4FAFC] text-[#072E33] font-black border border-[#B9DDE4] hover:bg-[#EAF4F7] hover:text-[#0C7075] transition-all flex items-center justify-center text-sm"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -315,7 +316,7 @@ export default function CityHubsPage() {
               }}
               className="w-full py-3.5 rounded-xl bg-[#0C7075] text-white font-black text-xs hover:bg-[#0A5A5E] transition-all shadow-md"
             >
-              Close & Target City 🚀
+              Close & Target City
             </button>
           </div>
         </div>

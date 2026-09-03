@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { Dot } from 'lucide-react';
 
 export default function CRMHubPage() {
   const { theme } = useAuth();
@@ -79,7 +80,7 @@ export default function CRMHubPage() {
       {/* Floating Notification Toast */}
       {notification && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce border border-[#03F3DA]/50">
-          ✨ {notification}
+          {notification}
         </div>
       )}
 
@@ -89,7 +90,7 @@ export default function CRMHubPage() {
         {/* Page Purpose & Guide Banner */}
         <div className={`p-6 sm:p-8 rounded-3xl border shadow-sm space-y-3 ${isDarkMode ? 'bg-[#072E33]/70 border-[#294D61]' : 'bg-gradient-to-r from-[#EAF4F7] to-[#F4FAFC] border-[#B9DDE4]'}`}>
           <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm inline-block ${isDarkMode ? 'bg-[#294D61] text-[#03F3DA] border-[#0C7075]' : 'bg-white text-[#0C7075] border-[#B9DDE4]'}`}>
-            📌 Page Purpose & Guide: CRM Hub
+            Page Purpose & Guide: CRM Hub
           </span>
           <h1 className={`text-2xl sm:text-3xl font-black ${heading}`}>Manage & Track All Your Client Relationships</h1>
           <p className={`text-xs sm:text-sm ${muted} leading-relaxed max-w-3xl`}>
@@ -136,7 +137,7 @@ export default function CRMHubPage() {
                       {client.skill}
                     </span>
                   </div>
-                  <p className={`text-xs ${muted}`}>✉️ {client.email} • Last Contact: {client.lastContact}</p>
+                  <p className={`text-xs ${muted} flex items-center gap-1`}>{client.email} <Dot className="w-1 h-1" /> Last Contact: {client.lastContact}</p>
                 </div>
 
                 <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
@@ -152,7 +153,7 @@ export default function CRMHubPage() {
                     href="/messages"
                     className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${isDarkMode ? 'bg-[#05161A] text-[#03F3DA] border-[#294D61] hover:bg-[#0C7075] hover:text-white' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4] hover:bg-[#0C7075] hover:text-white'}`}
                   >
-                    View Chat →
+                    View Chat
                   </Link>
                 </div>
               </div>

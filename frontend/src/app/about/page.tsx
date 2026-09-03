@@ -4,15 +4,16 @@ import React from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { Shield, Zap, Rocket, Target, Folder, TrendingUp, MapPin, X, ArrowLeft } from 'lucide-react';
 
 export default function AboutUsPage() {
   const { theme } = useAuth();
   const isDarkMode = theme === 'dark';
 
   const coreValues = [
-    { title: 'Absolute Data Security', desc: 'All client negotiations and scraped leads are encrypted and strictly bound to your private session.', icon: '🛡️' },
-    { title: 'Speed & Intelligence', desc: 'Automated map scraping and live website speed audits execute in seconds to save hours of manual research.', icon: '⚡' },
-    { title: 'Zero Deal Drop-off', desc: 'By routing outreach through secure internal messaging bridges, client contact leaks are completely eliminated.', icon: '🚀' },
+    { title: 'Absolute Data Security', desc: 'All client negotiations and scraped leads are encrypted and strictly bound to your private session.', icon: 'shield' },
+    { title: 'Speed & Intelligence', desc: 'Automated map scraping and live website speed audits execute in seconds to save hours of manual research.', icon: 'zap' },
+    { title: 'Zero Deal Drop-off', desc: 'By routing outreach through secure internal messaging bridges, client contact leaks are completely eliminated.', icon: 'rocket' },
   ];
 
   const missionPoints = [
@@ -23,10 +24,10 @@ export default function AboutUsPage() {
   ];
 
   const ecosystem = [
-    { title: 'Lead Finder', desc: 'Automated B2B map scraper that extracts verified businesses, contacts, and websites in seconds.', icon: '🎯' },
-    { title: 'CRM Hub', desc: 'Centralized client records and notes, fully encrypted within your private user session.', icon: '🗂️' },
-    { title: 'Pipeline', desc: 'A teal deal board that tracks every lead from first outreach to final conversion.', icon: '📈' },
-    { title: 'City Hubs', desc: 'Curated regional centers optimized for Lahore, Karachi, Islamabad, and Faisalabad.', icon: '📍' },
+    { title: 'Lead Finder', desc: 'Automated B2B map scraper that extracts verified businesses, contacts, and websites in seconds.', icon: 'target' },
+    { title: 'CRM Hub', desc: 'Centralized client records and notes, fully encrypted within your private user session.', icon: 'folder' },
+    { title: 'Pipeline', desc: 'A teal deal board that tracks every lead from first outreach to final conversion.', icon: 'trending-up' },
+    { title: 'City Hubs', desc: 'Curated regional centers optimized for Lahore, Karachi, Islamabad, and Faisalabad.', icon: 'map-pin' },
   ];
 
   const techStack = [
@@ -49,7 +50,7 @@ export default function AboutUsPage() {
       {/* ================= HERO SECTION ================= */}
       <section className="px-6 lg:px-16 pt-20 pb-16 text-center max-w-5xl mx-auto space-y-6">
         <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold shadow-2xl border backdrop-blur-md ${isDarkMode ? 'bg-[#072E33]/80 text-[#03F3DA] border-[#0C7075]/60' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4]'}`}>
-          <span>✨ Crafting The Ultimate Digital Business Ecosystem</span>
+          <span>Crafting The Ultimate Digital Business Ecosystem</span>
         </div>
 
         <h1 className={`text-3xl sm:text-6xl font-black tracking-tight leading-[1.15] ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>
@@ -68,8 +69,8 @@ export default function AboutUsPage() {
       <section className={`px-6 lg:px-16 py-16 border-y ${isDarkMode ? 'bg-[#072E33]/70 border-[#294D61]' : 'bg-[#EAF4F7] border-[#B9DDE4]'}`}>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className={`p-8 rounded-3xl border shadow-2xl space-y-4 ${isDarkMode ? 'bg-[#05161A] border-[#294D61]' : 'bg-white border-[#B9DDE4]'}`}>
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center text-2xl shadow-lg border border-[#03F3DA]/40`}>
-              🎯
+            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center shadow-lg border border-[#03F3DA]/40`}>
+              <Target className="w-7 h-7 text-white" />
             </div>
             <h2 className={`text-2xl sm:text-3xl font-black ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>Our Mission</h2>
             <p className={`text-xs sm:text-sm leading-relaxed ${isDarkMode ? 'text-[#A9C6D4]' : 'text-[#294D61]'}`}>
@@ -100,8 +101,10 @@ export default function AboutUsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {coreValues.map((val, idx) => (
             <div key={idx} className={`p-6 sm:p-8 rounded-3xl border shadow-2xl space-y-3 transition-transform hover:-translate-y-2 duration-300 ${isDarkMode ? 'bg-[#072E33]/90 border-[#294D61]' : 'bg-white border-[#B9DDE4]'}`}>
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center text-xl shadow-lg border border-[#03F3DA]/40">
-                {val.icon}
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                {val.icon === 'shield' && <Shield className="w-6 h-6 text-white" />}
+                {val.icon === 'zap' && <Zap className="w-6 h-6 text-white" />}
+                {val.icon === 'rocket' && <Rocket className="w-6 h-6 text-white" />}
               </div>
               <h3 className={`text-base sm:text-lg font-black ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>{val.title}</h3>
               <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-[#A9C6D4]' : 'text-[#294D61]'}`}>{val.desc}</p>
@@ -121,7 +124,12 @@ export default function AboutUsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {ecosystem.map((mod, idx) => (
               <div key={idx} className={`p-6 rounded-3xl border shadow-xl transition-all hover:-translate-y-1.5 duration-300 ${isDarkMode ? 'bg-[#05161A] border-[#294D61] hover:border-[#0C7075]' : 'bg-white border-[#B9DDE4] hover:border-[#0C7075]'}`}>
-                <div className="text-3xl mb-3">{mod.icon}</div>
+                <div className="w-12 h-12 mb-3 rounded-2xl bg-gradient-to-br from-[#0C7075] to-[#6DA5C0] flex items-center justify-center shadow-lg border border-[#03F3DA]/40">
+                  {mod.icon === 'target' && <Target className="w-6 h-6 text-white" />}
+                  {mod.icon === 'folder' && <Folder className="w-6 h-6 text-white" />}
+                  {mod.icon === 'trending-up' && <TrendingUp className="w-6 h-6 text-white" />}
+                  {mod.icon === 'map-pin' && <MapPin className="w-6 h-6 text-white" />}
+                </div>
                 <h3 className={`font-black text-sm mb-2 ${isDarkMode ? 'text-white' : 'text-[#072E33]'}`}>{mod.title}</h3>
                 <p className={`text-[11px] leading-relaxed ${isDarkMode ? 'text-[#A9C6D4]' : 'text-[#294D61]'}`}>{mod.desc}</p>
               </div>
@@ -165,7 +173,7 @@ export default function AboutUsPage() {
             href="/"
             className="px-8 py-3 rounded-2xl bg-gradient-to-r from-[#0C7075] to-[#6DA5C0] text-white font-black text-xs shadow-xl inline-block hover:scale-105 transition-transform border border-[#03F3DA]/50"
           >
-            Back to Home Dashboard 🚀
+            Back to Home Dashboard
           </Link>
         </div>
       </section>

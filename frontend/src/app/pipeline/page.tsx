@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import { Sparkles, Pin, ArrowUpRight, X, Rocket } from 'lucide-react';
 
 export default function PipelinePage() {
   const { theme } = useAuth();
@@ -118,8 +119,8 @@ export default function PipelinePage() {
 
       {/* Floating Notification Toast */}
       {notification && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce border border-[#03F3DA]/50">
-          ✨ {notification}
+        <div className="fixed bottom-6 right-6 z-50 bg-[#0C7075] text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl animate-bounce border border-[#03F3DA]/50 flex items-center gap-2">
+          <Sparkles className="w-4 h-4" /> {notification}
         </div>
       )}
 
@@ -128,8 +129,8 @@ export default function PipelinePage() {
         
         {/* Page Purpose & Guide Banner */}
         <div className={`p-6 sm:p-8 rounded-3xl border shadow-sm space-y-3 ${isDarkMode ? 'bg-[#072E33]/70 border-[#294D61]' : 'bg-gradient-to-r from-[#EAF4F7] to-[#F4FAFC] border-[#B9DDE4]'}`}>
-          <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm inline-block ${isDarkMode ? 'bg-[#294D61] text-[#03F3DA] border-[#0C7075]' : 'bg-white text-[#0C7075] border-[#B9DDE4]'}`}>
-            📌 Page Purpose & Guide: Sales Pipeline & Revenue Forecasting
+          <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm inline-flex items-center gap-2 ${isDarkMode ? 'bg-[#294D61] text-[#03F3DA] border-[#0C7075]' : 'bg-white text-[#0C7075] border-[#B9DDE4]'}`}>
+            <Pin className="w-4 h-4" /> Page Purpose & Guide: Sales Pipeline & Revenue Forecasting
           </span>
           <h1 className={`text-2xl sm:text-3xl font-black ${heading}`}>Sales Funnel & Deal Forecasting Table</h1>
           <p className={`text-xs sm:text-sm ${muted} leading-relaxed max-w-4xl`}>
@@ -224,7 +225,7 @@ export default function PipelinePage() {
                         }}
                         className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${isDarkMode ? 'bg-[#05161A] text-[#03F3DA] border-[#294D61] hover:bg-[#0C7075] hover:text-white' : 'bg-[#EAF4F7] text-[#0C7075] border-[#B9DDE4] hover:bg-[#0C7075] hover:text-white'}`}
                       >
-                        Inspect ↗
+                        Inspect <ArrowUpRight className="inline w-4 h-4 ml-1" />
                       </button>
                     </td>
                   </tr>
@@ -257,7 +258,7 @@ export default function PipelinePage() {
                 onClick={() => setIsModalOpen(false)}
                 className={`w-9 h-9 rounded-xl font-black border transition-all flex items-center justify-center text-sm ${isDarkMode ? 'bg-[#05161A] text-white border-[#294D61] hover:bg-[#294D61] hover:text-[#03F3DA]' : 'bg-[#F4FAFC] text-[#072E33] border-[#B9DDE4] hover:bg-[#D5ECF0] hover:text-[#0C7075]'}`}
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -279,7 +280,7 @@ export default function PipelinePage() {
               }}
               className="w-full py-3.5 rounded-xl bg-[#0C7075] text-white font-black text-xs hover:bg-[#0A5A5E] transition-all shadow-md"
             >
-              Close & Return to Pipeline 🚀
+              Close & Return to Pipeline <Rocket className="inline w-4 h-4 ml-1" />
             </button>
           </div>
         </div>

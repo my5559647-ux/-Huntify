@@ -7,14 +7,12 @@ import mongoose, { Schema, model, InferSchemaType } from 'mongoose';
 const messageSchema = new Schema(
   {
     conversation: {
-      type: Schema.Types.ObjectId,
-      ref: 'Conversation',
+      type: Schema.Types.Mixed, // Allow both ObjectId and string
       required: true,
       index: true,
     },
     sender: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: Schema.Types.Mixed, // Allow both ObjectId and string
       required: true,
     },
     text: {
