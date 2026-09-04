@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { ArrowRight, Heart } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -26,12 +27,12 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Quick Links</h3>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/" className="hover:text-teal-400 transition-colors">→ Home</Link></li>
-              <li><Link href="/leadfinder" className="hover:text-teal-400 transition-colors">→ Lead Finder</Link></li>
-              <li><Link href="/crm" className="hover:text-teal-400 transition-colors">→ CRM Hub</Link></li>
-              <li><Link href="/messages" className="hover:text-teal-400 transition-colors">→ Chat</Link></li>
-              <li><Link href="/pipeline" className="hover:text-teal-400 transition-colors">→ Pipeline</Link></li>
-              <li><Link href="/cities" className="hover:text-teal-400 transition-colors">→ City Hubs</Link></li>
+              <li><Link href="/" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> Home</Link></li>
+              <li><Link href="/leadfinder" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> Lead Finder</Link></li>
+              <li><Link href="/crm" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> CRM Hub</Link></li>
+              <li><Link href="/messages" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> Chat</Link></li>
+              <li><Link href="/pipeline" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> Pipeline</Link></li>
+              <li><Link href="/cities" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> City Hubs</Link></li>
             </ul>
           </div>
 
@@ -39,10 +40,10 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Resources</h3>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/ai-features" className="hover:text-teal-400 transition-colors">→ AI Features</Link></li>
-              <li><Link href="/about" className="hover:text-teal-400 transition-colors">→ About Us</Link></li>
-              <li><Link href="/faq" className="hover:text-teal-400 transition-colors">→ FAQ</Link></li>
-              <li><Link href="/profile" className="hover:text-teal-400 transition-colors">→ Profile</Link></li>
+              <li><Link href="/ai-features" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> AI Features</Link></li>
+              <li><Link href="/about" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> About Us</Link></li>
+              <li><Link href="/faq" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> FAQ</Link></li>
+              <li><Link href="/profile" className="hover:text-teal-400 transition-colors flex items-center gap-2"><ArrowRight className="w-4 h-4" /> Profile</Link></li>
             </ul>
           </div>
 
@@ -62,8 +63,8 @@ export default function Footer() {
                 <span className="text-emerald-400 font-bold">Operational</span>
               </div>
             </div>
-            <div className="text-xs text-gray-500">
-              Built with <span className="text-rose-500">♥</span> using Next.js & Tailwind CSS
+            <div className="text-xs text-gray-500 flex items-center gap-1">
+              Built with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> using Next.js & Tailwind CSS
             </div>
           </div>
 

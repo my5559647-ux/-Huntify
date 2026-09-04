@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { Lock } from 'lucide-react';
 
 export default function GuardModal() {
   const { guardModalOpen, closeGuardModal } = useAuth();
@@ -18,7 +19,7 @@ export default function GuardModal() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-16 h-16 mx-auto rounded-full bg-[#EAF4F7] border border-[#B9DDE4] flex items-center justify-center text-3xl dark:bg-[#072E33] dark:border-[#0C7075]">
-          🔒
+          <Lock className="w-8 h-8 text-[#0C7075]" />
         </div>
 
         <div className="space-y-2">

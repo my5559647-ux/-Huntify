@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import ProfileMenu from '@/components/ProfileMenu';
+import { Menu } from 'lucide-react';
 
 interface NavbarProps {
   active?: string;
@@ -88,7 +89,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`md:hidden p-2 rounded-xl border ${isDarkMode ? 'bg-[#072E33] text-white border-[#294D61]' : 'bg-[#EAF4F7] text-[#05161A] border-[#B9DDE4]'}`}
           >
-            ☰
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </header>
