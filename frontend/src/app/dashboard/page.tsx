@@ -39,7 +39,7 @@ export default function DashboardPage() {
   const isDark = theme === 'dark';
 
   const getIcon = (iconName: string) => {
-    const icons: { [key: string]: JSX.Element } = {
+    const icons: { [key: string]: React.ReactNode } = {
       home: <Home className="w-5 h-5" />,
       target: <Target className="w-5 h-5" />,
       folder: <Folder className="w-5 h-5" />,
@@ -455,7 +455,7 @@ export default function DashboardPage() {
             {/* ===== OTHER TABS (routed pages) ===== */}
             {(activeSection === 'leadfinder' || activeSection === 'crm' || activeSection === 'pipeline') && (
               <div className={`p-10 rounded-3xl border shadow-sm text-center space-y-4 ${card}`}>
-                <span className="text-4xl">
+                <span className="text-4xl inline-block">
                   <Dot className="w-10 h-10 fill-[#0C7075]" />
                 </span>
                 <h2 className={`text-xl font-black ${heading}`}>
