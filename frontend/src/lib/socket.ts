@@ -1,8 +1,7 @@
 'use client';
 
 import { io, Socket } from 'socket.io-client';
-
-const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'https://huntify-production-7c9c.up.railway.app';
+import { SOCKET_URL } from './config';
 
 // Singleton socket instance so we don't create multiple connections across the app.
 let socket: Socket | null = null;

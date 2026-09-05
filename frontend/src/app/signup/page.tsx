@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
+import { API_URL } from '@/lib/config';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function SignupPage() {
 
     setLoading(true);
     try {
-      const response = await fetch('https://huntify-production-7c9c.up.railway.app/api/auth/signup', {
+      const response = await fetch(`${API_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, avatar }),
@@ -64,7 +65,7 @@ export default function SignupPage() {
         setError(result.message || 'Something went wrong. Please try again.');
       }
     } catch {
-      setError('Could not reach the server. Make sure the backend is running on port 5000.');
+      setError('Could not reach the server. Please try again later.');
     } finally {
       setLoading(false);
     }

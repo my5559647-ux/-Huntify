@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import { connectSocket, disconnectSocket, handleVisibilityChange } from '@/lib/socket';
 import type { Socket } from 'socket.io-client';
 import { MessageSquare, ArrowLeft, Paperclip, FileText, Circle, Dot, Send } from 'lucide-react';
+import { API_URL, SOCKET_URL } from '@/lib/config';
 
 interface FileMeta {
   name: string;
@@ -100,8 +101,7 @@ const MOCK_CONTACTS: Contact[] = [
   },
 ];
 
-const API = 'https://huntify-production-7c9c.up.railway.app/api/chats';
-const SOCKET_URL = 'https://huntify-production-7c9c.up.railway.app';
+const API = `${API_URL}/api/chats`;
 
 // Helper to derive initials for avatars
 const initials = (name: string) =>
