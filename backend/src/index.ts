@@ -11,20 +11,15 @@ import { initSocket } from './socket';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 1. Manual OPTIONS handling for Preflight requests
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  next();
-});
+// Enable CORS for ALL origins and ALL preflight requests immediately
+app.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+}));
 
-// 2. Standard CORS Middleware
-app.use(cors());
+app.options('*', cors());
 
 app.use(express.json({ limit: '25mb' }));
 
