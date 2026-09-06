@@ -14,6 +14,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// For Vercel serverless, don't start the server automatically
+const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
+
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
     // Allow all origins. Reflect the origin so credentials (cookies) still work —
@@ -59,8 +62,11 @@ app.use('/api/email', emailRoutes);
 const server = http.createServer(app);
 initSocket(server);
 
-server.listen(PORT, () => {
-  console.log(`Server is running live on port ${PORT}`);
-});
+// Only start the server if not running on Vercel
+if (!isVercel) {
+  server.listen(PORT, () => {
+    console.log(`Server is running live on port ${PORT}`);
+  });
+}
 
 export default app;
