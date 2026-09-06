@@ -9,7 +9,7 @@ import { API_URL } from '@/lib/config';
 
 export default function SignupPage() {
   const router = useRouter();
-  const { login } = useAuth() as any;
+  const { login } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -51,13 +51,20 @@ export default function SignupPage() {
       const response = await fetch(`${API_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ name, email, password, avatar }),
       });
 
-      const result = await response.json();
+      const raw = await response.text();
+      let result: { success?: boolean; message?: string; user?: { id: string; name: string; email: string; avatar?: string } };
+      try {
+        result = raw ? JSON.parse(raw) : {};
+      } catch {
+        setError('Could not reach the server. Please try again later.');
+        return;
+      }
 
-      if (response.ok && result.success) {
-        // Auto-login: store user in context
+      if (response.ok && result.success && result.user) {
         login(result.user);
         setSuccess(true);
         setTimeout(() => router.push('/leadfinder'), 900);

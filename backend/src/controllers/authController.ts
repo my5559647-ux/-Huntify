@@ -15,8 +15,17 @@ const verifyPassword = (password: string, stored: string): boolean => {
   if (!salt || !hash) return false;
   const hashBuffer = Buffer.from(hash, 'hex');
   const verifyBuffer = scryptSync(password, salt, 64);
+  if (hashBuffer.length !== verifyBuffer.length) return false;
   return timingSafeEqual(hashBuffer, verifyBuffer);
 };
+
+const publicUser = (user: { _id: unknown; name: string; email: string; avatar?: string; createdAt?: Date }) => ({
+  id: String(user._id),
+  name: user.name,
+  email: user.email,
+  avatar: user.avatar || '',
+  createdAt: user.createdAt,
+});
 
 export const signup = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -50,13 +59,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
     res.status(201).json({
       success: true,
       message: 'Account created successfully.',
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar,
-        createdAt: user.createdAt,
-      },
+      user: publicUser(user),
     });
   } catch (error: any) {
     // Handle duplicate-key race condition gracefully
@@ -93,13 +96,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.status(200).json({
       success: true,
       message: 'Login successful.',
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar,
-        createdAt: user.createdAt,
-      },
+      user: publicUser(user),
     });
   } catch (error: any) {
     console.error('Login error:', error?.message || error);

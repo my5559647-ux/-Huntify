@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import GuardModal from "@/components/GuardModal";
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   description: "Huntify connects you with verified regional businesses, audits legacy websites, and manages all deal conversions securely.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"

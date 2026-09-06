@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import puppeteer from 'puppeteer';
 
 // Build a realistic-but-derived email from a real website domain (best-effort)
 const emailFromDomain = (domain: string) => {
@@ -225,6 +224,8 @@ export const startScrapingTask = async (req: Request, res: Response): Promise<vo
   try {
     // 1. Launch Puppeteer with anti-bot flags + realistic user agent
     // For Railway/deployment: skip Chrome download, use system Chrome or executablePath
+    const puppeteer = await import('puppeteer');
+
     const launchOptions: any = {
       headless: true,
       args: [

@@ -32,13 +32,20 @@ export default function SigninPage() {
       const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
-      const result = await response.json();
+      const raw = await response.text();
+      let result: { success?: boolean; message?: string; user?: { id: string; name: string; email: string; avatar?: string } };
+      try {
+        result = raw ? JSON.parse(raw) : {};
+      } catch {
+        setError('Could not reach the server. Please try again later.');
+        return;
+      }
 
-      if (response.ok && result.success) {
-        // Persist the user (with avatar) in auth context + localStorage
+      if (response.ok && result.success && result.user) {
         login(result.user);
         setSuccess(true);
         setTimeout(() => router.push('/leadfinder'), 900);

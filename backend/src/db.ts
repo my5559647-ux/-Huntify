@@ -24,6 +24,8 @@ export const connectDB = async (): Promise<void> => {
     isConnected = !!conn.connections[0].readyState;
     console.log(`✅ MongoDB Connected to Cloud Atlas: ${conn.connection.host}`);
   } catch (error: any) {
+    isConnected = false;
     console.error('❌ MongoDB Connection Error Details:', error.message || error);
+    throw error;
   }
 };
