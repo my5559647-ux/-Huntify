@@ -14,11 +14,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Define allowed origins for production and development
+const allowedOrigins = [
+  'https://huntify-two.vercel.app',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://huntify-production-7c9c.up.railway.app',
+];
+
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-    // Allow all origins. Reflect the origin so credentials (cookies) still work —
-    // 'Access-Control-Allow-Origin: *' is rejected by browsers when credentials are included.
-    callback(null, origin ?? true);
+    // Allow requests with no origin (like mobile apps, curl requests, etc.)
+    if (!origin) {
+      return callback(null, true);
+    }
+    // Check if the origin is in the allowed list
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
