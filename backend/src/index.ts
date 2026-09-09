@@ -73,11 +73,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/email', emailRoutes);
 
-const server = http.createServer(app);
-initSocket(server);
-
-// Only start the server if not running on Vercel
+// Only create HTTP server and initialize Socket.io if not running on Vercel
 if (!isVercel) {
+  const server = http.createServer(app);
+  initSocket(server);
   server.listen(PORT, () => {
     console.log(`Server is running live on port ${PORT}`);
   });
