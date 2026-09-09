@@ -14,12 +14,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Detect if running on Vercel
+const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
+
 // Define allowed origins for production and development
 const allowedOrigins = [
   'https://huntify-two.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
-  'https://huntify-production-7c9c.up.railway.app',
 ];
 
 const corsOptions: cors.CorsOptions = {
@@ -74,8 +76,11 @@ app.use('/api/email', emailRoutes);
 const server = http.createServer(app);
 initSocket(server);
 
-server.listen(PORT, () => {
-  console.log(`Server is running live on port ${PORT}`);
-});
+// Only start the server if not running on Vercel
+if (!isVercel) {
+  server.listen(PORT, () => {
+    console.log(`Server is running live on port ${PORT}`);
+  });
+}
 
 export default app;
