@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npx tsc",
+  "buildCommand": "node ./node_modules/typescript/bin/tsc",
   "rewrites": [
     {
       "source": "/(.*)",
