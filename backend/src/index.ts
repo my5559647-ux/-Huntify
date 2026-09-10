@@ -33,6 +33,9 @@ const corsOptions: cors.CorsOptions = {
     // Check if the origin is in the allowed list
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
+    } else if (origin.endsWith('.vercel.app')) {
+      // Allow any Vercel deployment (production and preview)
+      callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
