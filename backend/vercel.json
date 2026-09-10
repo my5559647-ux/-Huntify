@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "node ./node_modules/typescript/bin/tsc"
+  "builds": [
+    { "src": "src/index.ts", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "src/index.ts" }
+  ]
 }
