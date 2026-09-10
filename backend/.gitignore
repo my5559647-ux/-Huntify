@@ -5,6 +5,10 @@ package-lock.json
 # Build output
 dist/
 
+# Compiled JavaScript files in src (keep only TypeScript)
+src/**/*.js
+!src/index.ts
+
 # Environment variables
 .env
 .env.local
