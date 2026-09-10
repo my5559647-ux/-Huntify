@@ -43,7 +43,6 @@ const corsOptions: cors.CorsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 app.use(express.json({ limit: '25mb' }));
 
 app.get('/', (_req: Request, res: Response) => {
