@@ -1,3 +1,8 @@
+import { createServer } from 'http';
 import app from '../src/index';
 
-export default app;
+const server = createServer(app);
+
+export default function handler(req, res) {
+  server.emit('request', req, res);
+}
