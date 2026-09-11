@@ -1,25 +1,41 @@
 import mongoose from 'mongoose';
 
-let isConnected = false;
+const MONGODB_URI = "mongodb+srv://my5559647_huntify-db:huntify123@cluster0.apyguus.mongodb.net/?appName=Cluster0";
 
-export const connectDB = async (): Promise<void> => {
-  if (isConnected) {
-    return;
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable inside db.ts');
+}
+
+// Global variable ko cache ke taur par use karte hain taake Vercel functions bar bar connect na karein
+let cached = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
+}
+
+export const connectDB = async () => {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 10000,
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('✅ MongoDB Connected Successfully');
+      return mongoose;
+    });
   }
 
   try {
-    // Direct connection string yahan rakh do taake Vercel dashboard ki zaroorat hi na pade
-    const uri = "mongodb+srv://my5559647_huntify-db:huntify123@cluster0.apyguus.mongodb.net/?appName=Cluster0";
-
-    const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000,
-    });
-
-    isConnected = !!conn.connections[0].readyState;
-    console.log(`✅ MongoDB Connected to Cloud Atlas: ${conn.connection.host}`);
-  } catch (error: any) {
-    isConnected = false;
-    console.error('❌ MongoDB Connection Error Details:', error.message || error);
-    throw error;
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
   }
+
+  return cached.conn;
 };
