@@ -11,11 +11,16 @@ export const connectDB = async (): Promise<void> => {
   }
 
   try {
-    const uri = process.env.MONGODB_URI || process.env.MONGO_DB;
+    const user = process.env.DB_USER || '';
+    const password = process.env.DB_PASSWORD || '';
+    const host = process.env.DB_HOST || '';
+    const dbName = process.env.DB_NAME || 'test';
 
-    if (!uri) {
-      throw new Error('MONGODB_URI is missing in .env file!');
+    if (!user || !password || !host) {
+      throw new Error('MongoDB environment variables (DB_USER, DB_PASSWORD, DB_HOST) are missing!');
     }
+
+    const uri = `mongodb+srv://${encodeURIComponent(user)}:${encodeURIComponent(password)}@${host}/${dbName}?retryWrites=true&w=majority`;
 
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 5000,
