@@ -20,8 +20,7 @@ export const connectDB = async (): Promise<void> => {
       throw new Error('MongoDB environment variables (DB_USER, DB_PASSWORD, DB_HOST) are missing!');
     }
 
-    const uri = `mongodb+srv://${encodeURIComponent(user)}:${encodeURIComponent(password)}@${host}/${dbName}?retryWrites=true&w=majority`;
-
+const uri = `mongodb+srv://${user}:${password}@${host}/${dbName}?retryWrites=true&w=majority`;
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 5000,
     });
