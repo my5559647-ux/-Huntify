@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = "mongodb+srv://my5559647_huntify-db:huntify123@cluster0.apyguus.mongodb.net/?appName=Cluster0";
+const MONGODB_URI = "mongodb+srv://huntify-db:huntify123@cluster0.apyguus.mongodb.net/?appName=Cluster0";
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside db.ts');
