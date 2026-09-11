@@ -6,7 +6,6 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside db.ts');
 }
 
-// Global variable ko cache ke taur par use karte hain taake Vercel functions bar bar connect na karein
 let cached = (global as any).mongoose;
 
 if (!cached) {

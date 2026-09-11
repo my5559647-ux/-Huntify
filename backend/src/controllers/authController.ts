@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
 import User from '../models/User';
+import { connectDB } from '../db';
 
 // ─── Secure password helpers using Node's built-in scrypt (no extra deps) ───
-// Format: salt:hash  (both hex-encoded)
 const hashPassword = (password: string): string => {
   const salt = randomBytes(16).toString('hex');
   const hash = scryptSync(password, salt, 64).toString('hex');
@@ -29,6 +29,9 @@ const publicUser = (user: { _id: unknown; name: string; email: string; avatar?: 
 
 export const signup = async (req: Request, res: Response): Promise<void> => {
   try {
+    // Pehle database connection ensure karo taake serverless mein error na aaye
+    await connectDB();
+
     const { name, email, password, avatar } = req.body || {};
 
     if (!name || !email || !password) {
@@ -62,18 +65,20 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
       user: publicUser(user),
     });
   } catch (error: any) {
-    // Handle duplicate-key race condition gracefully
     if (error && error.code === 11000) {
       res.status(409).json({ success: false, message: 'An account with this email already exists.' });
       return;
     }
     console.error('Signup error:', error?.message || error);
-    res.status(500).json({ success: false, message: 'Internal server error.' });
+    res.status(500).json({ success: false, message: error?.message || 'Database unavailable. Please try again.' });
   }
 };
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
+    // Pehle database connection ensure karo
+    await connectDB();
+
     const { email, password } = req.body || {};
 
     if (!email || !password) {
@@ -100,6 +105,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     });
   } catch (error: any) {
     console.error('Login error:', error?.message || error);
-    res.status(500).json({ success: false, message: 'Internal server error.' });
+    res.status(500).json({ success: false, message: error?.message || 'Database unavailable. Please try again.' });
   }
 };
