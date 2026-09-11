@@ -1,7 +1,4 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 let isConnected = false;
 
@@ -11,11 +8,8 @@ export const connectDB = async (): Promise<void> => {
   }
 
   try {
-    const uri = process.env.MONGODB_URI;
-
-    if (!uri) {
-      throw new Error('MONGODB_URI is missing in environment variables!');
-    }
+    // Direct connection string yahan rakh do taake Vercel dashboard ki zaroorat hi na pade
+    const uri = "mongodb+srv://my5559647_huntify-db:huntify123@cluster0.apyguus.mongodb.net/?appName=Cluster0";
 
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 5000,
